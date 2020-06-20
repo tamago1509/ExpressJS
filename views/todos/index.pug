@@ -7,5 +7,10 @@ form(action='/todos/search', method='GET')
 
 ul
 	each task in todos
-		li= task.todo
+		li
+		span= task.todo
+		span &nbsp;
+		a(href='/todos/' + task.id) View
+		span &nbsp;
+		a(href="/todos/" +task.id +"/delete") Delete
 a(href="/todos/create") New task

@@ -43,6 +43,30 @@ app.get('/todos/search',(req, res)=>{
 app.get('/todos/create',(req, res)=>{
 	res.render('todos/create')
 })
+app.get('/todos/:id',(req, res)=>{
+	var viewId =parseInt(req.params.id);
+	var todo = db.get('todos').find({id:viewId}).value();
+	res.render('todos/view',{
+		todo: todo
+	})
+})
+// Xoa task
+app.get('/todos/:id/delete',(req, res)=>{
+	var deleteId= req.params.id;
+	db.get('todos')
+	.remove(todo=>
+		todo.id==deleteId
+	).write();
+
+	var temp = db.get('todos').value().map(todo=>{
+		if(todo.id > deleteId){
+			todo.id--;
+		}
+		return todo;
+	})
+	db.set('todos',temp).write();
+	res.redirect('/todos')
+})
 app.post('/todos/create',(req, res)=>{
 	db.get('todos').push({
 		id: db.get('todos').value().length+1,
