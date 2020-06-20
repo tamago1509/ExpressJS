@@ -6,5 +6,6 @@ form(action='/todos/search', method='GET')
 	button Search
 
 ul
-	each todo in todos
-		li= todo.task
+	each task in todos
+		li= task.todo
+a(href="/todos/create") New task
