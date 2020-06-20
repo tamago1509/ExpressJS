@@ -16,11 +16,21 @@ app.get('/',(req, res)=>{
 	res.send('<a href="/todos">View List Todo</a>')
 })
 app.get('/todos',(req, res)=>{
-	res.render('index',{
+	res.render('todos/index',{
 		todos: todos
 	})
 })
 
+app.get('/todos/search',(req, res)=>{
+	var q= req.query.q;
+	var sortedTask = todos.filter(todo=>{
+		return todo.task.toLowerCase().indexOf(q.toLowerCase()) !==-1;
+	})
+	res.render('todos/index',{
+		todos: sortedTask,
+		q:q
+	})
+})
 
 app.listen(port,()=>{
 	console.log('There is a port in: ' +port);
