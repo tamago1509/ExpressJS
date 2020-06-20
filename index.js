@@ -2,17 +2,23 @@ var express= require('express');
 var app= express();
 var port = 4000;
 
+var todos=[
+	{id:1, task:"Đi chợ"},
+	{id:1, task:"Nấu cơm"},
+	{id:1, task:"Rửa bát"},
+	{id:1, task:"Học code tại CodersX"}
+]
+
+app.set('view engine','pug');
+app.set('views', './views');
 
 app.get('/',(req, res)=>{
 	res.send('<a href="/todos">View List Todo</a>')
 })
 app.get('/todos',(req, res)=>{
-	res.send(`<ul>
-		<li>Đi chợ</li>
-		<li>Nấu cơm</li>
-		<li>Rửa bát</li>
-		<li>Học code tại CodersX</li>
-	</ul>`)
+	res.render('index',{
+		todos: todos
+	})
 })
 
 
